@@ -153,8 +153,10 @@
                 <section class="wrapper style1 align-center">
 
                     <!-- Gallery -->
-                    <div class="gallery style2 medium lightbox onscroll-fade-in"><div class="modal" tabindex="-1"><div class="inner"><img src=""></div></div><div class="forward"></div><div class="backward"></div>
-                        <div class="inner" style="overflow: hidden;">
+                    <div class="gallery style2 medium lightbox onscroll-fade-in"><div class="modal" tabindex="-1"><div class="inner"><img src=""></div></div>
+                        <div class="forward" id="forward" onmouseover="setMoveStatus('forward')" onmouseout="setMoveStatus('none')"></div>
+                        <div class="backward" id="backward" onmouseover="setMoveStatus('backward')" onmouseout="setMoveStatus('none')"></div>
+                        <div class="inner" style="overflow: hidden;" id="gallery">
                             
                             <article>
                                 <div class="image">
@@ -174,6 +176,16 @@
                             <article>
                                 <div class="image">
                                     <img src="./public/img/life04.jpg" alt="">
+                                </div>
+                            </article>
+                            <article>
+                                <div class="image">
+                                    <img src="./public/img/life05.jpg" alt="">
+                                </div>
+                            </article>
+                            <article>
+                                <div class="image">
+                                    <img src="./public/img/life06.jpg" alt="">
                                 </div>
                             </article>
                         </div>
@@ -196,4 +208,26 @@
 
         </div>
 
+        <script>
+            let forwardArrow = document.getElementById("forward");
+            let backwardArrow = document.getElementById("backward");
+            let elem = document.getElementById("gallery");
+            let pos = 0;
+            let move = elem.offsetWidth - elem.scrollWidth;
+            elem.style.overflow = 'visible';
+            
+            let id = setInterval(updateView, 5);
+            let status = 'none';
+            function setMoveStatus(dir) {
+                status = dir;
+            }
+            function updateView() {
+                if (pos > move && status === 'forward') {
+                    pos--;
+                } else if (pos < 0 && status === 'backward') {
+                    pos++;
+                }
+                elem.style.left = pos + 'px'; 
+            }
+        </script>
 </body></html>
